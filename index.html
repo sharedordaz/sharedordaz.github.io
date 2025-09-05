@@ -1,124 +1,275 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shared Ordaz — Desarrollador de software</title>
+  <meta name="description" content="Shared Ordaz - Desarrollador de software" />
 
-  <meta name="description" content="Shared Ordaz - Desarrollo de Software">
-  <meta name="author" content="Shared Ordaz">
-  <meta property="og:title" content="Shared Ordaz - Desarrollo de Software">
-  <meta property="og:type" content="website">
-
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-  <link rel="stylesheet" href="styles/normalize.css">
-
-  <title>Shared - Desarrollo de Software</title>
+  <!-- Fuente limpia y profesional -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
+    :root{
+      --bg: #ffffff;
+      --ink: #0a0a0a;
+      --muted: #6b7280;
+      --accent: #111111;
+      --radius: 14px;
+      --ease: cubic-bezier(.2,.8,.2,1);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
-      background: #111;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
       margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
     }
 
-    /* --- Monitor --- */
-    .monitor {
-      width: 400px;
-      height: 300px;
-      background: #000;
-      border: 8px solid #555;
-      border-radius: 10px;
-      position: relative;
-      box-shadow: 0 0 40px #00f;
-      overflow: hidden;
-      animation: powerOn 2s ease forwards;
-    }
-
-    .screen {
-      width: 100%;
-      height: 100%;
-      background: url('https://upload.wikimedia.org/wikipedia/en/5/5f/Windows_Vista_Wallpaper.png') no-repeat center center;
-      background-size: cover;
-      opacity: 0;
-      animation: fadeIn 3s ease 4s forwards; /* aparece después del loader */
-    }
-
-    @keyframes powerOn {
-      0% { background: #000; box-shadow: 0 0 5px #000; }
-      50% { background: #111; box-shadow: 0 0 20px #00f; }
-      100% { background: #000; box-shadow: 0 0 40px #00f; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .base {
-      width: 200px;
-      height: 25px;
-      background: #444;
-      margin: 10px auto 0;
-      border-radius: 4px;
-      box-shadow: 0 0 15px #00f;
-    }
-
-    /* --- Loader estilo Vista --- */
-    .loader-container {
-      position: absolute;
+    /* ====== POSTER INTRO ====== */
+    .poster {
+      position: fixed;
       inset: 0;
-      background: #000;
-      display: flex;
-      justify-content: center;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    /* Contenedor para poder apilar barras + texto + botón */
+    .poster-inner{
+      position: relative;
+      width: min(1100px, 92vw);
+      height: min(720px, 80vh);
+      display: grid;
+      grid-template-rows: 1fr auto auto;
       align-items: center;
-      animation: hideLoader 1s ease forwards;
-      animation-delay: 3s; /* dura 3 segundos */
+      justify-items: center;
+      gap: 24px;
     }
 
-    .loader {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255,255,255,0.2);
-      border-top: 5px solid #0af;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
+    /* Barras negras inclinadas 355° (-5°) que cubren casi todo */
+    .bars{
+      position: absolute;
+      inset: -15vh -20vw; /* las extendemos para cubrir de sobra */
+      transform: rotate(355deg);
+      pointer-events: none;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .bar{
+      position: absolute;
+      left: 0; right: 0;
+      margin: 0 auto;
+      width: 160vw;           /* bien anchas para cubrir diagonal */
+      height: 32vh;           /* gorditas, casi tapando todo */
+      background: #000;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: barIn 800ms var(--ease) forwards;
+    }
+    .bar.top   { top: 12vh; animation-delay: 100ms; }
+    .bar.bottom{ bottom: 12vh; animation-delay: 240ms; }
+
+    @keyframes barIn {
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes hideLoader {
+    /* Texto centrado sobre las barras (como póster) */
+    .headline{
+      position: relative;
+      text-align: center;
+      z-index: 2;
+      padding: clamp(8px, 2vw, 16px) clamp(12px, 3vw, 28px);
+    }
+    .headline h1{
+      margin: 0 0 6px 0;
+      font-size: clamp(28px, 6vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,.5);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: textIn 700ms var(--ease) 360ms forwards;
+    }
+    .headline p{
+      margin: 0;
+      font-size: clamp(14px, 2.8vw, 22px);
+      font-weight: 600;
+      color: #e5e7eb;
+      text-shadow: 0 2px 8px rgba(0,0,0,.45);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: textIn 700ms var(--ease) 460ms forwards;
+    }
+    @keyframes textIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Botón “Saber más” debajo */
+    .cta {
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: textIn 700ms var(--ease) 620ms forwards;
+    }
+    .cta button{
+      appearance: none;
+      border: 0;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 22px;
+      font-size: clamp(14px, 2.5vw, 16px);
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), opacity .2s var(--ease);
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    }
+    .cta button:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(0,0,0,.22); }
+    .cta button:active{ transform: translateY(0); }
+
+    /* Desvanecer póster al continuar */
+    .poster.leaving{
+      animation: posterOut 520ms var(--ease) forwards;
+    }
+    @keyframes posterOut {
       to { opacity: 0; visibility: hidden; }
+    }
+
+    /* ====== CONTENIDO PRINCIPAL ====== */
+    header{
+      padding: 20px clamp(16px, 4vw, 40px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand{
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    main{
+      padding: 40px clamp(16px, 4vw, 56px) 96px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero{
+      display: grid;
+      gap: 10px;
+      margin: 20px 0 10px;
+    }
+    .hero h2{
+      margin: 0;
+      font-size: clamp(26px, 5vw, 44px);
+      letter-spacing: -0.02em;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .cards{
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .card{
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease);
+      background: #fff;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+    }
+
+    /* Accesibilidad: respetar prefiere-reducir-movimiento */
+    @media (prefers-reduced-motion: reduce) {
+      .bar, .headline h1, .headline p, .cta, .poster.leaving { animation: none !important; }
     }
   </style>
 </head>
 <body>
-  <header></header>
-  <div id="headerSpace"></div>
-  <div class="banner"></div>
 
-  <main>
-    <div>
-      <div class="monitor">
-        <!-- Loader -->
-        <div class="loader-container">
-          <div class="loader"></div>
-        </div>
-        <!-- Pantalla -->
-        <div class="screen"></div>
+  <!-- PÓSTER INTRO -->
+  <div class="poster" id="poster">
+    <div class="poster-inner">
+      <div class="bars" aria-hidden="true">
+        <div class="bar top"></div>
+        <div class="bar bottom"></div>
       </div>
-      <div class="base"></div>
+
+      <div class="headline" role="heading" aria-level="1">
+        <h1>Shared Ordaz</h1>
+        <p>Desarrollador de software</p>
+      </div>
+
+      <div class="cta">
+        <button id="ctaBtn" aria-controls="contenido" aria-label="Saber más">Saber más</button>
+      </div>
     </div>
+  </div>
+
+  <!-- CONTENIDO DEL SITIO -->
+  <header>
+    <div class="brand">Shared Ordaz</div>
+    <nav aria-label="principal">
+      <!-- enlaces si lo deseas -->
+    </nav>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <section class="hero">
+      <h2>Soluciones de software sobrias, modernas y eficientes</h2>
+      <p>
+        Desarrollo de aplicaciones web, APIs y automatizaciones. Me enfoco en
+        código limpio, performance y producto listo para producción.
+      </p>
+    </section>
+
+    <section class="cards" aria-label="Servicios">
+      <article class="card">
+        <h3>Aplicaciones Web</h3>
+        <p>Frontends modernos y accesibles con atención al detalle.</p>
+      </article>
+      <article class="card">
+        <h3>Backends / APIs</h3>
+        <p>Diseño y construcción de APIs escalables, seguras y documentadas.</p>
+      </article>
+      <article class="card">
+        <h3>Integraciones</h3>
+        <p>Conexión con terceros, scraping ético y automatización de procesos.</p>
+      </article>
+    </section>
   </main>
 
-  <footer></footer>
+  <script>
+    // Oculta el póster cuando se pulsa "Saber más" y enfoca el contenido
+    const ctaBtn = document.getElementById('ctaBtn');
+    const poster = document.getElementById('poster');
+    const contenido = document.getElementById('contenido');
 
-
+    ctaBtn.addEventListener('click', () => {
+      poster.classList.add('leaving');
+      // Esperar el desvanecido para retirar del flujo y mover foco
+      setTimeout(() => {
+        poster.style.display = 'none';
+        contenido.focus({ preventScroll: false });
+        // opcional: desplazar a contenido
+        contenido.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 520);
+    });
+  </script>
 </body>
 </html>
