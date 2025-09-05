@@ -1,0 +1,293 @@
+:root {
+  --mainBlue: #087a6f;
+  --secGray: #595959ff;
+  --mywhite: #f2e9dcff;
+  --mygreen: #cfd11aff;
+  --myorange: rgb(207, 75, 42);
+}
+
+
+
+/*
+:root{
+    --giants-orange: rgb(151, 38, 0);
+    --earth-yellow: #f2c078ff;
+    --dutch-white: #faedcaff;
+    --tea-green: #c1dbb3ff;
+    --emerald: #7ebc89ff;
+    --vivid-emerald: rgb(19, 83, 31);
+}*/
+
+h1,h2,h3,h4,h5{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color:var(--mainBlue);
+}
+
+p,button, li, a, strong, i, label{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hidden{
+    display:none;
+    width:1px;
+    height:1px;
+}
+
+button{
+    color:var(--mywhite);
+}
+
+/*HEADING*/
+header{
+    position:fixed;
+    width: 100%;
+    display:flex;
+    background-color:var(--mainBlue);
+    z-index:5;
+}
+#headerSpace{
+    height:7em;
+}
+
+.logo{
+    display:flex;
+    align-items: center;
+    padding: 0.5em;
+
+    cursor:pointer;
+}
+
+.logo:hover{
+    transform: scaleY(1.2);
+    transition: 0.3s;
+}
+
+.logo img{
+    padding:5px;
+}
+.logo h2{
+    color: var(--mywhite);
+
+}
+.logo strong{
+    font-size: 1em;
+    color: rgb(66, 66, 66);
+}
+
+/*NAVBAR*/
+.navbar {
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease, transform 0.4s ease;
+}
+
+
+.navbar a {
+    text-decoration: none;
+    color: var(--mywhite);
+
+    padding:1em;
+    text-align:center;
+    text-justify:distribute;
+    width:100%;
+
+    justify-self: center;
+    align-self: center;
+
+    transition: max-height 0.4s ease-in-out;
+}
+
+
+.navbar a:hover{
+    background-color: var(--secGray);
+    color:white;
+    transform:scale(1.1);
+
+    transition: 0.4s;
+}
+
+.navbar a:active{
+    cursor: grabbing;
+
+}
+
+.hamburguer{
+    visibility:collapse;
+    user-select:none;
+    cursor: pointer;
+}
+
+.navbar h1{
+    padding:0 1rem;
+}
+
+/*BANNER*/
+.banner{
+    position:relative;
+    width:95%;
+    margin: 1.3% 2.5%;
+    height:25em;
+    overflow: hidden;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#overback{
+    position:absolute;
+    display:flex;
+    left:20%;
+    
+    flex-direction: row;
+    gap:50%;
+    z-index: 3;
+}
+
+
+.banner button{
+    font-size:1.2em;
+    width:300px;
+
+    font-size: 2em;
+    background-color: var(--mygreen);
+    color:black;
+    border: none;
+    box-shadow: 1px 1px gray;
+
+    align-self: center;
+    justify-self: end;
+
+    cursor:pointer;
+
+    z-index: 2;
+}
+
+#bannerMessage{
+
+    font-size: 1em;
+    background-color:var(--secGray);
+    opacity:0.8;
+
+    padding:1em;
+
+    z-index:1;
+}
+
+#bannerMessage h1, #bannerMessage p{
+    color:var(--mywhite);
+}
+
+.banner button:hover{
+    filter: brightness(1.1);
+}
+
+.banner button:active{
+    filter:brightness(0.8);
+    border:1px solid gray;
+}
+
+
+
+/*Main*/
+
+main{
+    position:relative;
+    width:92%;
+    margin: 1.3% 2.5% 1.3% 2.5%;
+
+    padding: 1em;
+
+    background-color: var(--mywhite);
+
+    overflow-x: hidden;
+}
+
+
+/*FOOTER*/
+
+footer{
+    display:block;
+    position:relative;
+    background-color: var(--mainBlue);
+
+    display:flex;
+
+    padding:0.5em;
+
+    margin-top:1em;
+}
+
+footer .social{
+    display:grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    gap: 1em;
+    width:80%;
+
+}
+
+footer .logo{
+    width:20%;
+
+}
+footer a{
+
+    text-decoration: none;
+    color: var(--mywhite);
+    font-weight: bolder;
+    display:flex;
+    width:25px;
+    height:25px;
+
+    justify-self: center;
+    align-self: center;
+}
+
+footer a:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.social img{
+
+    padding-left: 1em;
+    width:100%;
+    height: 100%;
+
+}
+
+#username{
+    text-align: center;
+}
+
+#about_us:hover{
+    transform: translateY(-10px);
+    transition: 1s;
+}
+
+#about_us div{
+    display:flex;
+}
+#about_us h1{
+    display:block;
+}
+
+#about_us p{
+    flex: 1;
+    min-width: 300px;
+    text-align: justify;
+    padding:2em;
+}
+
+#about_us img{
+    flex: 1;
+    max-width: 400px;
+    width: 400px;
+    height: auto;
+    border-radius: 1rem;
+    object-fit: cover;
+}
