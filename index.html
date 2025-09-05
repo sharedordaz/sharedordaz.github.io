@@ -1,51 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!--Autor Meta Tags-->
-    <meta name="description" content="Shared Ordaz - Desarrollo de Software">
-    <meta name="author" content="Shared Ordaz">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--Facebook meta tags-->
-    <meta property="og:title" content="Shared Ordaz - Desarrollo de Software">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="">
-    <meta property="og:url" content="">
+  <meta name="description" content="Shared Ordaz - Desarrollo de Software">
+  <meta name="author" content="Shared Ordaz">
+  <meta property="og:title" content="Shared Ordaz - Desarrollo de Software">
+  <meta property="og:type" content="website">
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
+  <link rel="stylesheet" href="styles/normalize.css">
 
-    <link rel="stylesheet" href="styles/base-large.css">
-    <link rel="stylesheet" href="styles/base-small.css">
-    <link rel="stylesheet" href="styles/normalize.css">
-    <title>Shared - Desarrollo de Software
+  <title>Shared - Desarrollo de Software</title>
 
-    </title>
+  <style>
+    body {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    /* --- Monitor --- */
+    .monitor {
+      width: 400px;
+      height: 300px;
+      background: #000;
+      border: 8px solid #555;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 0 40px #00f;
+      overflow: hidden;
+      animation: powerOn 2s ease forwards;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      background: url('https://upload.wikimedia.org/wikipedia/en/5/5f/Windows_Vista_Wallpaper.png') no-repeat center center;
+      background-size: cover;
+      opacity: 0;
+      animation: fadeIn 3s ease 4s forwards; /* aparece después del loader */
+    }
+
+    @keyframes powerOn {
+      0% { background: #000; box-shadow: 0 0 5px #000; }
+      50% { background: #111; box-shadow: 0 0 20px #00f; }
+      100% { background: #000; box-shadow: 0 0 40px #00f; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .base {
+      width: 200px;
+      height: 25px;
+      background: #444;
+      margin: 10px auto 0;
+      border-radius: 4px;
+      box-shadow: 0 0 15px #00f;
+    }
+
+    /* --- Loader estilo Vista --- */
+    .loader-container {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: hideLoader 1s ease forwards;
+      animation-delay: 3s; /* dura 3 segundos */
+    }
+
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255,255,255,0.2);
+      border-top: 5px solid #0af;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes hideLoader {
+      to { opacity: 0; visibility: hidden; }
+    }
+  </style>
 </head>
 <body>
+  <header></header>
+  <div id="headerSpace"></div>
+  <div class="banner"></div>
 
-
-    <header>
-
-
-    </header>
-    <div id="headerSpace">
-
-    </div>
-        <div class="banner">
-
+  <main>
+    <div>
+      <div class="monitor">
+        <!-- Loader -->
+        <div class="loader-container">
+          <div class="loader"></div>
         </div>
-    <main>
-    </main>
+        <!-- Pantalla -->
+        <div class="screen"></div>
+      </div>
+      <div class="base"></div>
+    </div>
+  </main>
 
-    <footer>
+  <footer></footer>
 
-    </footer>
-    <script src="scripts/menu.js" defer></script>
-    <script src="scripts/object.js"defer></script>
-    <script src="scripts/footer.js" defer></script>
-    <script src="scripts/header.js" defer></script>
+
 </body>
 </html>
