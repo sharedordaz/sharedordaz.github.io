@@ -26,6 +26,11 @@
       background: #000; /* darker like the reference */
       z-index: 9999;
       overflow: hidden;
+      /* path is relative to this CSS file (styles/), so go up one level */
+      background-image: url("../images/background-grid.png");
+      background-repeat: repeat;
+      background-position: center;
+      background-size: 500px 500px;
     }
 
     /* Texto centrado sobre las barras (como póster) */
