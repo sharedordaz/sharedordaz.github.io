@@ -28,51 +28,12 @@
       overflow: hidden;
     }
 
-    /* Contenedor para poder apilar barras + texto + botón */
-    .poster-inner{
-      position: relative;
-      width: min(1100px, 92vw);
-      height: min(720px, 80vh);
-      display: grid;
-      grid-template-rows: 1fr auto auto;
-      align-items: center;
-      justify-items: center;
-      gap: 24px;
-    }
-
-    /* Barras negras inclinadas 355° (-5°) que cubren casi todo */
-    .bars{
-      position: absolute;
-      inset: -20vh -30vw; /* extend more to safely cover */
-      transform: rotate(-8deg);
-      pointer-events: none;
-    }
-
-    .bar{
-      position: absolute;
-      left: 50%; transform-origin: center;
-      width: 180vw;           /* wider to cover diagonally */
-      height: 40vh;           /* thicker bars for drama */
-      background: #000;
-      border-radius: 28px;
-      box-shadow: 0 40px 100px rgba(0,0,0,.5);
-      opacity: 0;
-      transform: translate(-50%, 40px) rotate(0deg);
-      animation: barIn 900ms var(--ease) forwards;
-    }
-    .bar.top   { top: 8vh; animation-delay: 120ms; }
-    .bar.bottom{ bottom: 8vh; animation-delay: 260ms; }
-
-    @keyframes barIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     /* Texto centrado sobre las barras (como póster) */
     .headline{
       position: relative;
       text-align: center;
       z-index: 2;
-      padding: clamp(10px, 3vw, 20px) clamp(12px, 3vw, 28px);
+      padding: clamp(10px, 2vw, 20px) clamp(12px, 3vw, 28px);
       max-width: 1000px;
     }
     .headline h1{
@@ -110,6 +71,7 @@
       transform: translateY(10px);
       animation: textIn 700ms var(--ease) 620ms forwards;
       display: inline-block;
+      align-self:flex-start;
     }
     .cta button{
       appearance: none;
