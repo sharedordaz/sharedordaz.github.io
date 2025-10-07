@@ -23,7 +23,7 @@
       inset: 0;
       display: grid;
       place-items: center;
-      background: var(--bg);
+      background: #000; /* darker like the reference */
       z-index: 9999;
       overflow: hidden;
     }
@@ -43,26 +43,25 @@
     /* Barras negras inclinadas 355° (-5°) que cubren casi todo */
     .bars{
       position: absolute;
-      inset: -15vh -20vw; /* las extendemos para cubrir de sobra */
-      transform: rotate(355deg);
+      inset: -20vh -30vw; /* extend more to safely cover */
+      transform: rotate(-8deg);
       pointer-events: none;
     }
 
     .bar{
       position: absolute;
-      left: 0; right: 0;
-      margin: 0 auto;
-      width: 160vw;           /* bien anchas para cubrir diagonal */
-      height: 32vh;           /* gorditas, casi tapando todo */
+      left: 50%; transform-origin: center;
+      width: 180vw;           /* wider to cover diagonally */
+      height: 40vh;           /* thicker bars for drama */
       background: #000;
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      border-radius: 28px;
+      box-shadow: 0 40px 100px rgba(0,0,0,.5);
       opacity: 0;
-      transform: translateY(40px);
-      animation: barIn 800ms var(--ease) forwards;
+      transform: translate(-50%, 40px) rotate(0deg);
+      animation: barIn 900ms var(--ease) forwards;
     }
-    .bar.top   { top: 12vh; animation-delay: 100ms; }
-    .bar.bottom{ bottom: 12vh; animation-delay: 240ms; }
+    .bar.top   { top: 8vh; animation-delay: 120ms; }
+    .bar.bottom{ bottom: 8vh; animation-delay: 260ms; }
 
     @keyframes barIn {
       to { opacity: 1; transform: translateY(0); }
@@ -73,25 +72,28 @@
       position: relative;
       text-align: center;
       z-index: 2;
-      padding: clamp(8px, 2vw, 16px) clamp(12px, 3vw, 28px);
+      padding: clamp(10px, 3vw, 20px) clamp(12px, 3vw, 28px);
+      max-width: 1000px;
     }
     .headline h1{
       margin: 0 0 6px 0;
-      font-size: clamp(28px, 6vw, 64px);
-      font-weight: 800;
+      font-size: clamp(34px, 8vw, 88px);
+      line-height: 0.9;
+      font-weight: 900;
       letter-spacing: -0.02em;
       color: #fff;
-      text-shadow: 0 2px 10px rgba(0,0,0,.5);
+      text-shadow: 0 6px 40px rgba(0,0,0,.6);
       opacity: 0;
       transform: translateY(12px);
       animation: textIn 700ms var(--ease) 360ms forwards;
+      text-transform: none;
     }
     .headline p{
       margin: 0;
-      font-size: clamp(14px, 2.8vw, 22px);
+      font-size: clamp(13px, 2.6vw, 18px);
       font-weight: 600;
-      color: #e5e7eb;
-      text-shadow: 0 2px 8px rgba(0,0,0,.45);
+      color: #d1d5db;
+      text-shadow: 0 4px 24px rgba(0,0,0,.45);
       opacity: 0;
       transform: translateY(12px);
       animation: textIn 700ms var(--ease) 460ms forwards;
@@ -107,21 +109,23 @@
       opacity: 0;
       transform: translateY(10px);
       animation: textIn 700ms var(--ease) 620ms forwards;
+      display: inline-block;
     }
     .cta button{
       appearance: none;
       border: 0;
-      background: var(--accent);
+      background: rgba(255,255,255,0.08);
       color: #fff;
-      padding: 14px 22px;
-      font-size: clamp(14px, 2.5vw, 16px);
-      font-weight: 600;
-      border-radius: var(--radius);
+      padding: 12px 20px;
+      font-size: clamp(13px, 2.2vw, 15px);
+      font-weight: 700;
+      border-radius: 999px;
       cursor: pointer;
-      transition: transform .18s var(--ease), box-shadow .18s var(--ease), opacity .2s var(--ease);
-      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), opacity .2s var(--ease), background .18s var(--ease);
+      box-shadow: 0 8px 30px rgba(0,0,0,.35);
+      backdrop-filter: blur(6px);
     }
-    .cta button:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(0,0,0,.22); }
+    .cta button:hover { transform: translateY(-2px); box-shadow: 0 18px 46px rgba(0,0,0,.45); background: rgba(255,255,255,0.12); }
     .cta button:active{ transform: translateY(0); }
 
     /* Desvanecer póster al continuar */
@@ -134,15 +138,32 @@
 
     /* ====== CONTENIDO PRINCIPAL ====== */
     header{
-      padding: 20px clamp(16px, 4vw, 40px);
+      padding: 18px clamp(16px, 4vw, 40px);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative;
+      z-index: 3;
     }
     .brand{
       font-weight: 700;
       letter-spacing: -0.01em;
+      font-size: 15px;
     }
+    nav.social{
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    nav.social a img{
+      width: 18px;
+      height: 18px;
+      display: block;
+      filter: invert(1) brightness(2) contrast(.9);
+      opacity: .9;
+      transition: opacity .18s ease, transform .12s ease;
+    }
+    nav.social a:hover img{ opacity: 1; transform: translateY(-2px); }
     main{
       padding: 40px clamp(16px, 4vw, 56px) 96px;
       max-width: 1100px;
@@ -184,4 +205,9 @@
     /* Accesibilidad: respetar prefiere-reducir-movimiento */
     @media (prefers-reduced-motion: reduce) {
       .bar, .headline h1, .headline p, .cta, .poster.leaving { animation: none !important; }
+    }
+
+    /* make page content visually separated after the poster */
+    main{
+      background: transparent;
     }
