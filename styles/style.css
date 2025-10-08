@@ -40,6 +40,8 @@
       z-index: 2;
       padding: clamp(10px, 2vw, 20px) clamp(12px, 3vw, 28px);
       max-width: 1000px;
+      backdrop-filter: contrast(80%);
+      border-radius: 10%;
     }
     .headline h1{
       margin: 0 0 6px 0;
@@ -65,7 +67,7 @@
       opacity: 0;
       transform: translateY(12px);
       animation: textIn 700ms var(--ease) 460ms forwards;
-      backdrop-filter: contrast(0%);
+      
     }
     @keyframes textIn {
       to { opacity: 1; transform: translateY(0); }
